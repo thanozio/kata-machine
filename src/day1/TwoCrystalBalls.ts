@@ -8,6 +8,9 @@ export default function two_crystal_balls(breaks: boolean[]): number {
         }
     }
 
+    if (current < 0) 
+        current = 0;
+
     for (let j = current - step; j <= current; j++) {
         if (breaks[j]) {
             return j;
