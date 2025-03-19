@@ -4,42 +4,38 @@ type Node<T> = {
 };
 
 export default class Queue<T> {
-    public length: number;
+    public length: number = 0;
     private head?: Node<T>;
     private tail?: Node<T>;
 
-    constructor() {
-        this.length = 0;
-        this.head = this.tail = undefined;
-    }
-
     enqueue(item: T): void {
-        const current: Node<T> = {
-            value: item,
-            next: undefined
+        const node: Node<T> = {
+            value: item
         };
 
         this.length++;
         if (!this.tail) {
-            this.head = this.tail = current;
-            return;
+            this.head = this.tail = node;
+        } else {
+            this.tail.next = node;
+            this.tail = node;
         }
-
-        this.tail.next = current;
-        this.tail = current;
     }
 
     deque(): T | undefined {
-        if (!this.head) return;
-        
-        this.length--;
-        if (this.length === 0)
-            this.tail = undefined;
+        if (!this.head) {
+            return;
+        }
 
-        const current = this.head;
+        this.length--;
+        if (this.length === 0) {
+            this.tail = undefined;
+        }
+
+        const node = this.head;
         this.head = this.head.next;
 
-        return current.value;
+        return node.value;
     }
 
     peek(): T | undefined {
