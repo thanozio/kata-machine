@@ -38,18 +38,13 @@ export default class MinHeap {
             return;
         }
 
-        const leftValue = this.data[leftIdx];
-        const rightValue = this.data[rightIdx];
-        const currentValue = this.data[idx];
+        const minChildIndex = this.data[leftIdx] < this.data[rightIdx]
+            ? leftIdx
+            : rightIdx;
 
-        if (leftValue > rightValue && currentValue > rightValue) {
-            this.data[idx] = rightValue;
-            this.data[rightIdx] = currentValue;
-            this.heapifyDown(rightIdx);
-        } else if (rightValue > leftValue && currentValue > leftValue) {
-            this.data[leftIdx] = currentValue;
-            this.data[idx] = leftValue;
-            this.heapifyDown(leftIdx);
+        if (this.data[idx] > this.data[minChildIndex]) {
+            [this.data[idx], this.data[minChildIndex]] = [this.data[minChildIndex], this.data[idx]];
+            this.heapifyDown(minChildIndex);
         }
     }
 
